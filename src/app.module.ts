@@ -1,3 +1,4 @@
+import { MailerModule } from './mailer/mailer.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { ApplicationModule } from './application/application.module';
 import { AuthModule } from './auth/auth.module';
@@ -9,6 +10,7 @@ import { Module } from '@nestjs/common';
 
 @Module({
   imports: [
+    MailerModule,
     FirebaseModule,
     ApplicationModule,
     AuthModule,

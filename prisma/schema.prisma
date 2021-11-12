@@ -53,10 +53,10 @@ model Application {
   userId Int
   book DonatedBook @relation(fields: [bookId], references: [id])
   bookId Int
-  date DateTime
+  date DateTime @default(now())
   description String
   contact String
-  isEmailSended Boolean
+  isEmailSended Boolean @default(false)
 }
 
 model DonatedBook {
