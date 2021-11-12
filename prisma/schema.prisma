@@ -71,7 +71,7 @@ model DonatedBook {
   author String
   pagesQty Int
   language String
-  applicationsQty Int
+  applicationsQty Int @default(0)
   applications Application[]
   isActive Boolean @default(true)
   createdAt DateTime @default(now())

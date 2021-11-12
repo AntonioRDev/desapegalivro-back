@@ -1,3 +1,4 @@
+import { FirebaseModule } from './firebase/firebase.module';
 import { ApplicationModule } from './application/application.module';
 import { AuthModule } from './auth/auth.module';
 import { BookModule } from './book/book.module';
@@ -8,6 +9,7 @@ import { Module } from '@nestjs/common';
 
 @Module({
   imports: [
+    FirebaseModule,
     ApplicationModule,
     AuthModule,
     BookModule,
