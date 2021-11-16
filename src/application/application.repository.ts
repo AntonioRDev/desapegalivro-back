@@ -6,13 +6,39 @@ import { ApplyToReceiveRequest } from './dto/apply-to-receive-request.dto';
 export class ApplicationRepository {
     constructor(private readonly prisma: PrismaService) {}
     
-    async applyToReceive(applyToReceiveDto: ApplyToReceiveRequest) {
-        return await this.prisma.application.create({
-            data: applyToReceiveDto
+    async getByUserId(userId: number) {
+        return await this.prisma.application.findMany({
+            where: {
+                userId: userId
+            },
+            include: {
+                book: {
+                    include: {
+                        category: true
+                    }
+                }
+            }
         })
     }
 
-    async setEmailSended(isSended: boolean) {
-        
+    async applyToReceive(applyToReceiveDto: ApplyToReceiveRequest) {
+        return await this.prisma.application.create({
+            data: applyToReceiveDto,
+            include: {
+                user: true,
+                book: true
+            }
+        })
+    }
+
+    async setEmailSended(isSended: boolean, applicationId: number) {
+        return await this.prisma.application.update({
+            where: {
+                id: applicationId
+            },
+            data: {
+                isEmailSended: isSended
+            }
+        })
     }
 }

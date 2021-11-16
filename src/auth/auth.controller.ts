@@ -9,12 +9,12 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() body: LoginDtoRequest, @Res() res: Response) {
-    try { 
-        const response = await this.authService.login(body);
+    try {
+      const response = await this.authService.login(body);
 
-        return res.status(HttpStatus.OK).json(response);
+      return res.status(HttpStatus.OK).json(response);
     } catch (error) {
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
     }
   }
 }

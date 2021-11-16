@@ -10,7 +10,15 @@ export class ApplicationService {
     private readonly mailerService: MailerService,
   ) {}
 
+  async getByUserId(userId: number) {
+    return await this.applicationRepository.getByUserId(userId);
+  }
+
   async applyToReceive(applyToReceiveDto: ApplyToReceiveRequest) {
+    const applicationPersisted = await this.applicationRepository.applyToReceive(applyToReceiveDto);
+
     await this.mailerService.send();
+
+    return await this.applicationRepository.setEmailSended(true, applicationPersisted.id);
   }
 }

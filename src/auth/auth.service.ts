@@ -15,13 +15,13 @@ export class AuthService {
     const user = await this.userService.findByEmail(loginDto.email);
 
     if(user) {
-        const isValidPassword = await bcrypt.compare(loginDto.password, user.password);
+      const isValidPassword = await bcrypt.compare(loginDto.password, user.password);
 
-        if(isValidPassword) {
-            const token = await this.firebaseService.getAuth().createCustomToken(loginDto.email);
+      if(isValidPassword) {
+          const token = await this.firebaseService.getAuth().createCustomToken(loginDto.email);
 
-            return { ...user, token};
-        }
+          return { user, token};
+      }
     }
   }
 }

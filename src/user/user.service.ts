@@ -12,6 +12,10 @@ export class UserService {
     private readonly firebaseService: FirebaseService,
   ) {}
 
+  async getById(id: number) {
+    return await this.userRepository.getById(id);
+  }
+
   async create(userRegisterDto: UserRegisterDto) {
     const unhashedPassword = userRegisterDto.password;
 

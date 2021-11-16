@@ -17,7 +17,7 @@ export class MailerService {
   async send() {
     let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 
-    sendSmtpEmail.subject = 'Subject Example';
+    sendSmtpEmail.subject = '📚 Uma pessoa se interessou em adquirir o livro que você está doando! 📚';
     sendSmtpEmail.htmlContent =
       '<html><body><h1>Desapega Livro teste email</h1></body></html>';
     sendSmtpEmail.sender = { name: process.env.FROM_EMAIL_NAME, email: process.env.FROM_EMAIL };

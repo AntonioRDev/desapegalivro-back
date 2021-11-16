@@ -6,6 +6,17 @@ import { UserRegisterDto } from './dto/user.dto';
 export class UserRepository {
     constructor(private readonly prisma: PrismaService) {}
 
+    async getById(id: number) {
+        return await this.prisma.user.findUnique({
+            where: {
+                id: id
+            },
+            include: {
+                address: true
+            }
+        });
+    }
+
     async create(userRegisterDto: UserRegisterDto) {
         const { name, email, password, phone, whatsapp, postalCode, street, city, neighborhood, number, state, uf } = userRegisterDto;
 
