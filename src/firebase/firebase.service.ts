@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import * as firebase from "firebase-admin";
-import firebaseConfig from '../config/firebaseConfig';
 
 @Injectable()
 export class FirebaseService {
@@ -8,7 +7,11 @@ export class FirebaseService {
 
     constructor() {
         this.firebaseApp = firebase.initializeApp({
-            credential: firebase.credential.cert(firebaseConfig)
+            credential: firebase.credential.cert({
+                clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+                projectId: process.env.FIREBASE_PROJECT_ID,
+                privateKey: process.env.FIREBASE_PRIVATE_KEY,
+            })
         });
     }
 
