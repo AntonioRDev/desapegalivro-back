@@ -15,10 +15,20 @@ export class ApplicationService {
   }
 
   async applyToReceive(applyToReceiveDto: ApplyToReceiveRequest) {
-    const applicationPersisted = await this.applicationRepository.applyToReceive(applyToReceiveDto);
+    const applicationPersisted =
+      await this.applicationRepository.applyToReceive(applyToReceiveDto);
 
-    await this.mailerService.send();
+    await this.mailerService.send(
+      applicationPersisted.user,
+      applicationPersisted.book.user,
+      applicationPersisted.book,
+      applicationPersisted.description,
+      applicationPersisted.contact,
+    );
 
-    return await this.applicationRepository.setEmailSended(true, applicationPersisted.id);
+    return await this.applicationRepository.setEmailSended(
+      true,
+      applicationPersisted.id,
+    );
   }
 }

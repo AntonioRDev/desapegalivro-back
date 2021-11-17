@@ -26,7 +26,11 @@ export class ApplicationRepository {
             data: applyToReceiveDto,
             include: {
                 user: true,
-                book: true
+                book: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         })
     }
