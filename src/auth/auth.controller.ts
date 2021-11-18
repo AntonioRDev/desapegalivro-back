@@ -10,6 +10,7 @@ export class AuthController {
   @Post('/login')
   async login(@Body() body: LoginDtoRequest, @Res() res: Response) {
     try {
+      console.log("body", body);
       const response = await this.authService.login(body);
 
       return res.status(HttpStatus.OK).json(response);
