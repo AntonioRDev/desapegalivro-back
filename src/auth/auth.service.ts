@@ -13,7 +13,8 @@ export class AuthService {
 
   async login(loginDto: LoginDtoRequest) {
     const user = await this.userService.findByEmail(loginDto.email);
-
+    console.log("raw pass", loginDto.password);
+    console.log("hash pass", user.password)
     if(user) {
       const isValidPassword = await bcrypt.compare(loginDto.password, user.password);
 
