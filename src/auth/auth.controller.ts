@@ -14,6 +14,7 @@ export class AuthController {
 
       return res.status(HttpStatus.OK).json(response);
     } catch (error) {
+      console.log("login error", error);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
     }
   }
