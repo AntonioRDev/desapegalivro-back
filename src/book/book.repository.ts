@@ -77,6 +77,13 @@ export class BookRepository {
             equals: false,
           }
         }
+      }, include: {
+        user: {
+          include: {
+            address: true
+          }
+        },
+        category: true
       }
     });
   }
