@@ -22,7 +22,6 @@ export class UserService {
       ...userRegisterDto,
       password: hashedPassword,
     });
-    console.log('user created', user);
 
     return user;
   }

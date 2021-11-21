@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { filter } from 'rxjs';
 import { PrismaService } from '../prisma/prisma.service';
 import { DonateBookRequestDto } from './dto/donate-book-request.dto';
 import { GetFilteredBooksDtoRequest } from './dto/get-filtered-books';
@@ -11,33 +10,34 @@ export class BookRepository {
   async getById(bookId: number) {
     return await this.prisma.donatedBook.findUnique({
       where: {
-        id: bookId
+        id: bookId,
       },
       include: {
         user: {
           include: {
-            address: true
-          }
+            address: true,
+          },
         },
-        category: true
-      }
-    })
+        category: true,
+        applications: true
+      },
+    });
   }
 
   async getByUser(userId: number) {
     return await this.prisma.donatedBook.findMany({
       where: {
-        userId: userId
+        userId: userId,
       },
       include: {
         user: {
           include: {
-            address: true
-          }
+            address: true,
+          },
         },
-        category: true
-      }
-    })
+        category: true,
+      },
+    });
   }
 
   async getBooks() {
@@ -49,17 +49,17 @@ export class BookRepository {
           },
           isDeleted: {
             equals: false,
-          }
-        }
+          },
+        },
       },
       include: {
         user: {
           include: {
-            address: true
-          }
+            address: true,
+          },
         },
-        category: true
-      }
+        category: true,
+      },
     });
   }
 
@@ -75,16 +75,17 @@ export class BookRepository {
           },
           isDeleted: {
             equals: false,
-          }
-        }
-      }, include: {
+          },
+        },
+      },
+      include: {
         user: {
           include: {
-            address: true
-          }
+            address: true,
+          },
         },
-        category: true
-      }
+        category: true,
+      },
     });
   }
 
@@ -95,44 +96,44 @@ export class BookRepository {
       },
       isDeleted: {
         equals: false,
-      }
+      },
     };
 
-    if(filterParams.userId) {
+    if (filterParams.userId) {
       params['userId'] = { not: filterParams.userId };
     }
 
-    if(filterParams.bookName) {
+    if (filterParams.bookName) {
       params['title'] = { contains: filterParams.bookName };
     }
 
-    if(filterParams.city) {
+    if (filterParams.city) {
       params['user'] = {
         address: {
           city: {
-            equals: filterParams.city
-          }
-        }
-      }
+            equals: filterParams.city,
+          },
+        },
+      };
     }
 
-    if(filterParams.state) {
+    if (filterParams.state) {
       params['user'] = {
         address: {
           state: {
-            equals: filterParams.state
-          }
-        }
-      }
+            equals: filterParams.state,
+          },
+        },
+      };
     }
 
     return await this.prisma.donatedBook.findMany({
       where: {
-        AND: params
+        AND: params,
       },
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
   }
 
@@ -141,12 +142,12 @@ export class BookRepository {
 
     return await this.prisma.donatedBook.update({
       where: {
-        id: donationBook.id
+        id: donationBook.id,
       },
       data: {
-        isActive: !donationBook.isActive
-      }
-    })
+        isActive: !donationBook.isActive,
+      },
+    });
   }
 
   async donate(donateBookDto: DonateBookRequestDto) {
